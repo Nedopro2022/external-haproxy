@@ -1,0 +1,27 @@
+# permissions for end users to view tcpbackends.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: tcpbackend-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: external-haproxy
+    app.kubernetes.io/part-of: external-haproxy
+    app.kubernetes.io/managed-by: kustomize
+  name: tcpbackend-viewer-role
+rules:
+- apiGroups:
+  - haproxy.bitmedia.co.jp
+  resources:
+  - tcpbackends
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - haproxy.bitmedia.co.jp
+  resources:
+  - tcpbackends/status
+  verbs:
+  - get
