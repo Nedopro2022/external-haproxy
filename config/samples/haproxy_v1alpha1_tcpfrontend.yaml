@@ -1,0 +1,12 @@
+apiVersion: haproxy.bitmedia.co.jp/v1alpha1
+kind: TCPFrontend
+metadata:
+  labels:
+    app.kubernetes.io/name: tcpfrontend
+    app.kubernetes.io/instance: tcpfrontend-sample
+    app.kubernetes.io/part-of: external-haproxy
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: external-haproxy
+  name: tcpfrontend-sample
+spec:
+  # TODO(user): Add fields here
