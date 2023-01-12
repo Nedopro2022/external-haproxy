@@ -3,4 +3,14 @@ layout:
 - go.kubebuilder.io/v3
 projectName: external-haproxy
 repo: github.com/Nedopro2022/external-haproxy
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: bitmedia.co.jp
+  group: haproxy
+  kind: ExternalHAProxy
+  path: github.com/Nedopro2022/external-haproxy/api/v1alpha1
+  version: v1alpha1
 version: "3"
