@@ -1,0 +1,7 @@
+---
+- name: Apply setup roles
+  hosts: all
+  roles:
+    - setup-bbr
+    - setup-haproxy
+    - setup-dataplaneapi

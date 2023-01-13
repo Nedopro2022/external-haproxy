@@ -1,0 +1,28 @@
+---
+- name: BBR requires FQ for pacing
+  become: true
+  sysctl:
+    name: net.core.default_qdisc
+    value: fq
+    sysctl_set: true
+    state: present
+    reload: true
+
+- name: Use BBR congestion control
+  become: true
+  sysctl:
+    name: net.ipv4.tcp_congestion_control
+    value: bbr
+    sysctl_set: true
+    state: present
+    reload: true
+
+# https://blog.cloudflare.com/http-2-prioritization-with-nginx/
+- name: Set tcp_notsent_lowat 16KB to avoid bufferbloat (default is 4GB)
+  become: true
+  sysctl:
+    name: net.ipv4.tcp_notsent_lowat
+    value: "16384"
+    sysctl_set: true
+    state: present
+    reload: true

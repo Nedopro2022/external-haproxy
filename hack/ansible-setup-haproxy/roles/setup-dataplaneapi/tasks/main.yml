@@ -1,0 +1,27 @@
+---
+- name: Install HAProxy Data Plane API 1/2
+  unarchive:
+    src: https://github.com/haproxytech/dataplaneapi/releases/download/v2.7.1/dataplaneapi_2.7.1_Linux_x86_64.tar.gz
+    dest: /tmp
+    remote_src: true
+
+- name: Install HAProxy Data Plane API 2/2
+  become: true
+  copy:
+    src: /tmp/build/dataplaneapi
+    dest: /usr/local/bin/dataplaneapi
+    remote_src: true
+    mode: "755"
+
+- name: Setup systemd 1/2
+  become: true
+  copy:
+    src: files/dataplaneapi.service
+    dest: /etc/systemd/system/dataplaneapi.service
+
+- name: Setup systemd 2/2
+  become: true
+  systemd:
+    name: dataplaneapi
+    state: restarted
+    enabled: true

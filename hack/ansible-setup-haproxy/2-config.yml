@@ -1,0 +1,6 @@
+---
+- name: Apply config roles
+  hosts: all
+  roles:
+    - config-haproxy
+    - config-dataplaneapi

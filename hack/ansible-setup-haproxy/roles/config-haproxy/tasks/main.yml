@@ -1,0 +1,12 @@
+---
+- name: Copy config
+  become: true
+  copy:
+    src: files/haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: Reload
+  become: true
+  systemd:
+    name: haproxy
+    state: reloaded

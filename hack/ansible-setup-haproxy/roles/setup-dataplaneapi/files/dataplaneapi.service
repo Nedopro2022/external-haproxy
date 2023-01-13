@@ -1,0 +1,10 @@
+[Unit]
+Description = HAProxy Data Plane API Server
+
+[Service]
+ExecStart = /usr/local/bin/dataplaneapi
+Restart = always
+Type = simple
+
+[Install]
+WantedBy = multi-user.target

@@ -1,0 +1,18 @@
+---
+- name: Copy userlist
+  become: true
+  copy:
+    src: files/userlist.cfg
+    dest: /etc/haproxy/userlist.cfg
+
+- name: Copy config
+  become: true
+  copy:
+    src: files/dataplaneapi.hcl
+    dest: /etc/haproxy/dataplaneapi.hcl
+
+- name: Reload
+  become: true
+  systemd:
+    name: haproxy
+    state: reloaded
