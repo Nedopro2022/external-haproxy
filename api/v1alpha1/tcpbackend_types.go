@@ -1,19 +1,31 @@
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+// BackendServer defines a backend server.
+type BackendServer struct {
+	// Name specifies the server name.
+	// E.g., "sv1"
+	Name string `json:"name"`
+
+	// Address specifies the address.
+	// E.g., "10.0.0.101:8080"
+	Address string `json:"address"`
+
+	// Weight specifies the weight. (range: 0-255)
+	Weight uint8 `json:"weight"`
+}
 
 // TCPBackendSpec defines the desired state of TCPBackend
 type TCPBackendSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// HAProxy specifies the associated ExternalHAProxy resource.
+	HAProxy corev1.LocalObjectReference `json:"haproxy"`
 
-	// Foo is an example field of TCPBackend. Edit tcpbackend_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Servers specifies backend servers.
+	Servers []BackendServer `json:"servers"`
 }
 
 // TCPBackendStatus defines the observed state of TCPBackend

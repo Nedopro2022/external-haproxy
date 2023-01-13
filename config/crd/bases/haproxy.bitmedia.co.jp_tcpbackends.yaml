@@ -1,0 +1,78 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.10.0
+  creationTimestamp: null
+  name: tcpbackends.haproxy.bitmedia.co.jp
+spec:
+  group: haproxy.bitmedia.co.jp
+  names:
+    kind: TCPBackend
+    listKind: TCPBackendList
+    plural: tcpbackends
+    singular: tcpbackend
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: TCPBackend is the Schema for the tcpbackends API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: TCPBackendSpec defines the desired state of TCPBackend
+            properties:
+              haproxy:
+                description: HAProxy specifies the associated ExternalHAProxy resource.
+                properties:
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                    type: string
+                type: object
+                x-kubernetes-map-type: atomic
+              servers:
+                description: Servers specifies backend servers.
+                items:
+                  description: BackendServer defines a backend server.
+                  properties:
+                    address:
+                      description: Address specifies the address. E.g., "10.0.0.101:8080"
+                      type: string
+                    name:
+                      description: Name specifies the server name. E.g., "sv1"
+                      type: string
+                    weight:
+                      description: 'Weight specifies the weight. (range: 0-255)'
+                      type: integer
+                  required:
+                  - address
+                  - name
+                  - weight
+                  type: object
+                type: array
+            required:
+            - haproxy
+            - servers
+            type: object
+          status:
+            description: TCPBackendStatus defines the observed state of TCPBackend
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

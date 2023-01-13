@@ -1,0 +1,14 @@
+apiVersion: haproxy.bitmedia.co.jp/v1alpha1
+kind: TCPBackend
+metadata:
+  name: be-tcp-mysql
+spec:
+  haproxy:
+    name: hap1
+  servers:
+    - name: sv1
+      address: 10.0.0.101:3306
+      weight: 10
+    - name: sv2
+      address: 10.0.0.102:3306
+      weight: 20

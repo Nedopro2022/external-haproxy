@@ -1,0 +1,11 @@
+apiVersion: haproxy.bitmedia.co.jp/v1alpha1
+kind: TCPFrontend
+metadata:
+  name: fe-tcp-mysql
+spec:
+  haproxy:
+    name: hap1
+  binds:
+    - ":3306"
+  backend:
+    name: be-tcp-mysql

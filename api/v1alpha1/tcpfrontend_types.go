@@ -1,19 +1,21 @@
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // TCPFrontendSpec defines the desired state of TCPFrontend
 type TCPFrontendSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// HAProxy specifies the associated ExternalHAProxy resource.
+	HAProxy corev1.LocalObjectReference `json:"haproxy"`
 
-	// Foo is an example field of TCPFrontend. Edit tcpfrontend_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Binds specifies bind addresses.
+	// E.g., [ ":8080" ]
+	Binds []string `json:"binds"`
+
+	// Backend specifies the associated TCPBackend resource.
+	Backend corev1.LocalObjectReference `json:"backend"`
 }
 
 // TCPFrontendStatus defines the observed state of TCPFrontend
